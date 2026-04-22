@@ -1,0 +1,34 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/products"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "jsonBody": {
+      "products": [
+        {
+          "productId": "P001",
+          "name": "Classic Credit Card",
+          "type": "CREDIT_CARD",
+          "active": true
+        },
+        {
+          "productId": "P002",
+          "name": "Flexible Personal Loan",
+          "type": "LOAN",
+          "active": true
+        },
+        {
+          "productId": "P003",
+          "name": "Legacy Savings Account",
+          "type": "SAVINGS",
+          "active": false
+        }
+      ]
+    }
+  }
+}

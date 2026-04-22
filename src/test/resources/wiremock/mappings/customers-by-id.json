@@ -1,0 +1,22 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPathPattern": "/customers/([a-zA-Z0-9]+)"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "jsonBody": {
+      "customerId": "C001",
+      "name": "John Smith",
+      "segment": "PREMIUM",
+      "eligibilityFlags": {
+        "creditCard": true,
+        "loan": true,
+        "savings": false
+      }
+    }
+  }
+}

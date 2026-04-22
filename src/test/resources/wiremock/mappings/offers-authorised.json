@@ -1,0 +1,33 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/offers",
+    "headers": {
+      "Authorization": {
+        "contains": "Bearer"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "jsonBody": {
+      "offers": [
+        {
+          "offerId": "O001",
+          "productId": "P001",
+          "description": "0% interest for 12 months on Classic Credit Card",
+          "eligible": true
+        },
+        {
+          "offerId": "O002",
+          "productId": "P002",
+          "description": "Preferential rate Personal Loan for Premium customers",
+          "eligible": true
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/offers"
+  },
+  "response": {
+    "status": 401,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "jsonBody": {
+      "error": "Unauthorised",
+      "message": "Valid Bearer token required"
+    }
+  }
+}

@@ -130,9 +130,21 @@
       <version>${logback.version}</version>
     </dependency>
 
+
+
   </dependencies>
 
   <build>
+
+    <testResources>
+      <testResource>
+        <directory>src/test/resources</directory>
+        <includes>
+          <include>**/*</include>
+        </includes>
+      </testResource>
+    </testResources>
+
     <plugins>
 
       <!-- Maven Compiler -->
@@ -155,9 +167,6 @@
           <suiteXmlFiles>
             <suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>
           </suiteXmlFiles>
-          <argLine>
-            -javaagent:"${settings.localRepository}/io/qameta/allure/allure-javaagent/${allure.version}/allure-javaagent-${allure.version}.jar"
-          </argLine>
         </configuration>
       </plugin>
 

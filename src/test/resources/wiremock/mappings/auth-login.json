@@ -1,0 +1,22 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/auth/login",
+    "bodyPatterns": [
+      {
+        "matchesJsonPath": "$.username"
+      }
+    ]
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "jsonBody": {
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.mocktoken",
+      "expiry": "2026-12-31T23:59:59Z",
+      "roles": ["CUSTOMER"]
+    }
+  }
+}
