@@ -29,6 +29,7 @@
     <slf4j.version>2.0.12</slf4j.version>
     <logback.version>1.5.3</logback.version>
     <jackson.version>2.16.1</jackson.version>
+    <owasp.dependency.check.version>9.0.10</owasp.dependency.check.version>
   </properties>
 
   <dependencies>
@@ -178,6 +179,35 @@
         <configuration>
           <reportVersion>${allure.version}</reportVersion>
         </configuration>
+      </plugin>
+
+      <!-- OWASP Dependency Check -->
+      <plugin>
+        <groupId>org.owasp</groupId>
+        <artifactId>dependency-check-maven</artifactId>
+        <version>${owasp.dependency.check.version}</version>
+        <configuration>
+          <!-- Fail build if CVSS score is 7 or above (High/Critical) -->
+          <!-- <nvdApiKey>${env.NVD_API_KEY}</nvdApiKey> -->
+          <failBuildOnCVSS>7</failBuildOnCVSS>
+          <failOnError>false</failOnError>
+          <!-- Output formats -->
+          <formats>
+            <format>HTML</format>
+            <format>JSON</format>
+          </formats>
+          <!-- Report output location -->
+          <outputDirectory>${project.build.directory}/dependency-check-report</outputDirectory>
+          <!-- Skip test scope dependencies if desired - set false to scan all -->
+          <skipTestScope>false</skipTestScope>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
 
     </plugins>
