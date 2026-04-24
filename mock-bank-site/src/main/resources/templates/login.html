@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>NorthBank - Login</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; background: #f4f4f4; }
+        .header { background: #1a2e5a; color: white; padding: 20px 40px; }
+        .header h1 { margin: 0; }
+        .login-container { max-width: 400px; margin: 60px auto;
+            background: white; padding: 40px;
+            border-radius: 8px; box-shadow: 0 2px 12px rgba(0,0,0,0.1); }
+        .login-container h2 { color: #1a2e5a; margin-top: 0; }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 6px; color: #333; font-size: 14px; }
+        input { width: 100%; padding: 10px; border: 1px solid #ccc;
+            border-radius: 4px; font-size: 14px; box-sizing: border-box; }
+        .login-button { width: 100%; background: #1a2e5a; color: white;
+            padding: 12px; border: none; border-radius: 4px;
+            font-size: 16px; cursor: pointer; }
+        .login-button:hover { background: #243b6e; }
+        .error-message { background: #f8d7da; color: #721c24; padding: 10px;
+            border-radius: 4px; margin-bottom: 16px; font-size: 14px; }
+        .test-hint { margin-top: 20px; font-size: 12px; color: #888;
+            border-top: 1px solid #eee; padding-top: 12px; }
+    </style>
+</head>
+<body>
+
+<div class="header" data-test="site-header">
+    <h1 data-test="bank-name">NorthBank</h1>
+</div>
+
+<div class="login-container" data-test="login-container">
+    <h2 data-test="login-title">Online Banking Login</h2>
+
+    <!-- Error message shown on failed login -->
+    <div class="error-message"
+         data-test="error-message"
+         th:if="${errorMessage}"
+         th:text="${errorMessage}">
+    </div>
+
+    <form method="post" action="/login" data-test="login-form">
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text"
+                   id="username"
+                   name="username"
+                   data-test="username-input"
+                   placeholder="Enter your username"/>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password"
+                   id="password"
+                   name="password"
+                   data-test="password-input"
+                   placeholder="Enter your password"/>
+        </div>
+        <button type="submit"
+                class="login-button"
+                data-test="login-button">
+            Log In
+        </button>
+    </form>
+
+    <div class="test-hint">
+        Test credentials: standard_user / password123
+    </div>
+</div>
+
+</body>
+</html>

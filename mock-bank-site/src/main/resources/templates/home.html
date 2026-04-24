@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>NorthBank - Home</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; background: #f4f4f4; }
+        .header { background: #1a2e5a; color: white; padding: 20px 40px; }
+        .header h1 { margin: 0; font-size: 24px; }
+        .nav { background: #243b6e; padding: 10px 40px; }
+        .nav a { color: white; text-decoration: none; margin-right: 20px; font-size: 14px; }
+        .nav a:hover { text-decoration: underline; }
+        .hero { background: white; padding: 60px 40px; text-align: center; }
+        .hero h2 { color: #1a2e5a; font-size: 32px; }
+        .hero p { color: #555; font-size: 16px; }
+        .cta-button { background: #e63946; color: white; padding: 14px 32px;
+            border: none; font-size: 16px; cursor: pointer;
+            border-radius: 4px; text-decoration: none; }
+        .products-preview { display: flex; justify-content: center;
+            gap: 20px; padding: 40px; flex-wrap: wrap; }
+        .card { background: white; padding: 24px; border-radius: 8px;
+            width: 200px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); text-align: center; }
+        .card h3 { color: #1a2e5a; }
+    </style>
+</head>
+<body>
+
+<div class="header" data-test="site-header">
+    <h1 data-test="bank-name" th:text="${bankName}">NorthBank</h1>
+</div>
+
+<div class="nav" data-test="main-nav">
+    <a href="/" data-test="nav-home">Home</a>
+    <a href="/products" data-test="nav-products">Products</a>
+    <a href="/login" data-test="nav-login">Login</a>
+</div>
+
+<div class="hero" data-test="hero-section">
+    <h2 data-test="hero-title">Welcome to NorthBank</h2>
+    <p data-test="hero-subtitle">
+        Trusted banking for over 50 years. Explore our products and services.
+    </p>
+    <a href="/products" class="cta-button" data-test="cta-button">
+        View Our Products
+    </a>
+</div>
+
+<div class="products-preview" data-test="products-preview">
+    <div class="card" data-test="preview-card-credit">
+        <h3>Credit Cards</h3>
+        <p>Flexible credit solutions</p>
+    </div>
+    <div class="card" data-test="preview-card-loans">
+        <h3>Personal Loans</h3>
+        <p>Competitive rates</p>
+    </div>
+    <div class="card" data-test="preview-card-savings">
+        <h3>Savings</h3>
+        <p>Grow your money</p>
+    </div>
+</div>
+
+</body>
+</html>

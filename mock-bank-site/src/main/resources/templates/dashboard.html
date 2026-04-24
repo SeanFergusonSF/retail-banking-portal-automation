@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>NorthBank - Dashboard</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; background: #f4f4f4; }
+        .header { background: #1a2e5a; color: white; padding: 20px 40px;
+            display: flex; justify-content: space-between; align-items: center; }
+        .header h1 { margin: 0; }
+        .welcome { font-size: 14px; }
+        .content { padding: 40px; }
+        .dashboard-grid { display: flex; gap: 20px; flex-wrap: wrap; }
+        .widget { background: white; padding: 24px; border-radius: 8px;
+            min-width: 200px; box-shadow: 0 2px 6px rgba(0,0,0,0.08); }
+        .widget h3 { margin: 0 0 12px; color: #1a2e5a; font-size: 14px;
+            text-transform: uppercase; letter-spacing: 0.5px; }
+        .widget .value { font-size: 28px; font-weight: bold; color: #1a2e5a; }
+        .offers-section { margin-top: 32px; }
+        .offer-item { background: white; padding: 20px; border-radius: 8px;
+            margin-bottom: 12px; border-left: 4px solid #e63946;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
+        .offer-item h4 { margin: 0 0 6px; color: #1a2e5a; }
+        .offer-item p { margin: 0; color: #555; font-size: 14px; }
+        .logout-link { color: white; text-decoration: none; font-size: 14px; }
+    </style>
+</head>
+<body>
+
+<div class="header" data-test="site-header">
+    <h1 data-test="bank-name">NorthBank</h1>
+    <div>
+            <span class="welcome" data-test="welcome-message">
+                Welcome, <span th:text="${customerName}">John Smith</span>
+            </span>
+        &nbsp;|&nbsp;
+        <a href="/login" class="logout-link" data-test="logout-link">Logout</a>
+    </div>
+</div>
+
+<div class="content">
+    <h2 data-test="dashboard-title">Your Dashboard</h2>
+
+    <div class="dashboard-grid" data-test="dashboard-widgets">
+        <div class="widget" data-test="widget-segment">
+            <h3>Customer Segment</h3>
+            <div class="value" data-test="segment-value"
+                 th:text="${segment}">Premium</div>
+        </div>
+        <div class="widget" data-test="widget-accounts">
+            <h3>Accounts</h3>
+            <div class="value" data-test="accounts-value">2</div>
+        </div>
+        <div class="widget" data-test="widget-offers">
+            <h3>Available Offers</h3>
+            <div class="value" data-test="offers-count">2</div>
+        </div>
+    </div>
+
+    <div class="offers-section" data-test="offers-section">
+        <h3>Your Personalised Offers</h3>
+
+        <div class="offer-item" data-test="offer-item" data-offer-id="O001">
+            <h4 data-test="offer-title">
+                0% interest for 12 months on Classic Credit Card
+            </h4>
+            <p data-test="offer-description">
+                Exclusively available to Premium customers. Apply by 31 December 2026.
+            </p>
+        </div>
+
+        <div class="offer-item" data-test="offer-item" data-offer-id="O002">
+            <h4 data-test="offer-title">
+                Preferential rate Personal Loan
+            </h4>
+            <p data-test="offer-description">
+                As a Premium customer, enjoy our lowest available loan rate of 3.9% APR.
+            </p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
