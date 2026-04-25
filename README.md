@@ -297,6 +297,7 @@ Given more time or a production context, the following would be prioritised:
   a deployed environment
 - **Allure TestOps** — centralised test history, trend analysis, and flaky test detection
 - **Visual regression** — Percy or Applitools for screenshot comparison testing
+- **Accessibility integration** — AXE WCAG compliance
 
 ---
 
