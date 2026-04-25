@@ -16,6 +16,7 @@ on:
 env:
   JAVA_VERSION: '17'
   MAVEN_OPTS: '-Xmx1024m'
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true  # Removes pipeline warning Node.js 20 deprecation in Sept 2026
 
 # ============================================================
 # JOBS
