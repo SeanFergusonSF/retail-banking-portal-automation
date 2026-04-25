@@ -75,6 +75,13 @@ public class ConfigManager {
     }
 
     public boolean isHeadless() {
+        // System property (-Dheadless=true) overrides config.properties
+        // This allows CI pipeline to force headless without file changes
+        String systemProp = System.getProperty("headless");
+        if (systemProp != null) {
+            log.info("Headless mode overridden by system property: {}", systemProp);
+            return Boolean.parseBoolean(systemProp);
+        }
         return getBoolean("headless");
     }
 
