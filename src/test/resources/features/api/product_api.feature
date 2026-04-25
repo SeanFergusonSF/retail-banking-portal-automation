@@ -21,3 +21,10 @@ Feature: Product Catalogue API
     When a GET request is made for product "P001"
     Then the response status is 200
     And the product name is "Classic Credit Card"
+
+  @performance
+  Scenario: Product API responds within acceptable time threshold
+    Given the product service is available
+    When a GET request is made to the products endpoint
+    Then the response status is 200
+    And the response time is under 500 milliseconds

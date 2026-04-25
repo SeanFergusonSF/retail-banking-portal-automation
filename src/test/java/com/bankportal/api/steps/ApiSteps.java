@@ -12,9 +12,13 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.response.Response;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 
 public class ApiSteps {
+
+    private static final Logger log = LoggerFactory.getLogger(ApiSteps.class);
 
     private ProductClient productClient;
     private AuthClient authClient;
@@ -173,6 +177,17 @@ public class ApiSteps {
                 .forEach(eligible ->
                         Assert.assertTrue(Boolean.TRUE.equals(eligible),
                                 "All offers should be eligible"));
+    }
+
+    @Then("the response time is under {int} milliseconds")
+    public void responseTimeIsUnder(int milliseconds) {
+        long responseTime = response.getTime();
+        log.info("Response time: {}ms (threshold: {}ms)", responseTime, milliseconds);
+        Assert.assertTrue(
+                responseTime < milliseconds,
+                String.format("Response time %dms exceeded threshold of %dms",
+                        responseTime, milliseconds)
+        );
     }
 
     // ===== Utility =====

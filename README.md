@@ -291,7 +291,7 @@ Given more time or a production context, the following would be prioritised:
 
 - **Contract testing** — Pact framework to validate consumer-provider API contracts
 - **Parallel execution** — TestNG parallel suite configuration with thread count tuning
-- **Performance smoke tests** — REST Assured response time assertions at API level
+- **Performance smoke tests** — REST Assured response time assertions at API level + Gatling
 - **Cross-browser support** — Firefox and Edge runners in the CI pipeline
 - **OWASP ZAP integration** — DAST scanning as a separate pipeline stage against
   a deployed environment

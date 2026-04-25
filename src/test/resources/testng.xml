@@ -4,6 +4,7 @@
 
     <listeners>
         <listener class-name="com.bankportal.utils.TestListener"/>
+        <listener class-name="com.bankportal.utils.RetryListener"/>
     </listeners>
 
     <test name="API Tests">
