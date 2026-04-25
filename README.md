@@ -240,10 +240,10 @@ Push to main
 │
 ▼
 Build & Compile ──────────────────────────────┐
-│                                         │
-▼                                         ▼
-API Tests (WireMock)              OWASP Dependency Check
-│                            (continue-on-error)
+│                                             │
+▼                                             ▼
+API Tests (WireMock)                OWASP Dependency Check
+│                                    (continue-on-error)
 ▼
 UI Tests (Headless Chrome)
 │
