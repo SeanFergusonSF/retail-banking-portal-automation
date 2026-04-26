@@ -106,9 +106,42 @@ bank-portal-automation/
 
 ---
 
+## Framework Resilience
+
+### Flaky Test Handling
+
+The framework includes a `RetryAnalyzer` wired globally via `IAnnotationTransformer`.
+Failed tests are automatically retried up to two times before being marked as failed.
+Every retry attempt is logged as a WARNING so flaky tests are visible in reports
+rather than silently passing.
+
+The retry limit is intentionally low — the goal is a safety net, not a workaround.
+Tests that consistently require retrying are candidates for investigation and are
+tracked via the WARNING log entries in `target/logs/test-run.log`.
+
+### Performance Smoke Testing
+
+A parameterised response time assertion step is available across all API scenarios:
+
+```
+gherkin
+And the response time is under 500 milliseconds
+```
+
+The millisecond threshold is configurable per scenario, allowing different SLA
+targets for different services. This provides a lightweight performance regression
+gate on every pipeline run — catching N+1 queries or synchronous dependency
+calls before they reach production.
+
+This is distinct from load testing — it validates single-user SLA compliance
+rather than concurrent throughput. For load testing, Gatling would be introduced
+as a separate scheduled pipeline stage.
+
+---
+
 ## Test Coverage
 
-### API Scenarios (7 total)
+### API Scenarios (8 total)
 
 | Feature | Scenario | Tag |
 |---|---|---|
@@ -119,6 +152,7 @@ bank-portal-automation/
 | Product API | Retrieve all products returns 200 | @smoke |
 | Product API | Active/inactive product counts correct | @smoke |
 | Product API | Retrieve product by ID | @smoke |
+| Product API | API responds within 500ms threshold | @performance |
 
 ### UI Scenarios (11 total)
 
@@ -199,8 +233,11 @@ bash
 # Smoke tests only
 mvn test -Dtest=ApiTestRunner -Dcucumber.filter.tags="@smoke"
 
-# Regression tests only  
+# Regression tests only
 mvn test -Dtest=UiTestRunner -Dcucumber.filter.tags="@regression"
+
+# Performance tests only
+mvn test -Dtest=ApiTestRunner -Dcucumber.filter.tags="@performance"
 ```
 
 ### OWASP Dependency Check
@@ -285,22 +322,6 @@ as a fast feedback gate. If API tests fail, UI tests do not run.
 
 ---
 
-## Future Improvements
-
-Given more time or a production context, the following would be prioritised:
-
-- **Contract testing** — Pact framework to validate consumer-provider API contracts
-- **Parallel execution** — TestNG parallel suite configuration with thread count tuning
-- **Performance smoke tests** — REST Assured response time assertions at API level + Gatling
-- **Cross-browser support** — Firefox and Edge runners in the CI pipeline
-- **OWASP ZAP integration** — DAST scanning as a separate pipeline stage against
-  a deployed environment
-- **Allure TestOps** — centralised test history, trend analysis, and flaky test detection
-- **Visual regression** — Percy or Applitools for screenshot comparison testing
-- **Accessibility integration** — AXE WCAG compliance
-
----
-
 ## Security
 
 This framework includes OWASP Dependency Check to audit third-party dependencies
@@ -309,6 +330,31 @@ dependency with a CVSS score of 7.0 (High) or above.
 
 No credentials, API keys, or sensitive data are stored in source code.
 All secrets are managed via GitHub Actions Secrets or environment variables.
+
+---
+
+## Future Improvements
+
+Given more time or a production context, the following would be prioritised:
+
+- **Contract testing** — Pact framework to validate consumer-provider API contracts,
+  ensuring provider deployments cannot break consumer expectations
+- **Parallel execution** — TestNG parallel suite configuration with thread count
+  tuning, leveraging the existing ThreadLocal WebDriver architecture
+- **Gatling load testing** — Multi-user concurrent throughput simulation as a
+  scheduled nightly pipeline job, complementing the existing single-user response
+  time assertions
+- **Cross-browser support** — Firefox and Edge runners added to the CI pipeline
+  alongside the existing headless Chrome configuration
+- **OWASP ZAP integration** — DAST scanning as a separate pipeline stage against
+  a deployed environment, covering the OWASP Top 10 vulnerabilities
+- **Allure TestOps** — centralised test history, trend analysis, and flaky test
+  detection across pipeline runs
+- **Visual regression** — Percy or Applitools for screenshot comparison testing
+  to catch unintended UI changes alongside functional assertions
+- **Accessibility integration** — Axe-core WCAG 2.1 compliance scanning integrated
+  into the UI test suite, relevant under UK Equality Act obligations for a
+  public-facing bank portal
 
 ---
 
