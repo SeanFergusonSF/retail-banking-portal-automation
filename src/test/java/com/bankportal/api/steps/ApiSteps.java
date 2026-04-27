@@ -1,13 +1,11 @@
 package com.bankportal.api.steps;
 
 import com.bankportal.api.clients.AuthClient;
-import com.bankportal.api.clients.CustomerClient;
 import com.bankportal.api.clients.OffersClient;
 import com.bankportal.api.clients.ProductClient;
 import com.bankportal.utils.WireMockServerManager;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
-import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -23,7 +21,6 @@ public class ApiSteps {
     private ProductClient productClient;
     private AuthClient authClient;
     private OffersClient offersClient;
-    private CustomerClient customerClient;
     private Response response;
     private String authToken;
 
@@ -33,7 +30,6 @@ public class ApiSteps {
         productClient = new ProductClient();
         authClient = new AuthClient();
         offersClient = new OffersClient();
-        customerClient = new CustomerClient();
     }
 
     @After("@api")
@@ -76,9 +72,9 @@ public class ApiSteps {
         long activeCount = response.jsonPath()
                 .getList("products.active")
                 .stream()
-                .filter(active -> Boolean.TRUE.equals(active))
+                .filter(Boolean.TRUE::equals)
                 .count();
-        Assert.assertEquals(activeCount, (long) expectedCount,
+        Assert.assertEquals(activeCount, expectedCount,
                 "Active product count mismatch");
     }
 
@@ -87,9 +83,9 @@ public class ApiSteps {
         long inactiveCount = response.jsonPath()
                 .getList("products.active")
                 .stream()
-                .filter(active -> Boolean.FALSE.equals(active))
+                .filter(Boolean.FALSE::equals)
                 .count();
-        Assert.assertEquals(inactiveCount, (long) expectedCount,
+        Assert.assertEquals(inactiveCount, expectedCount,
                 "Inactive product count mismatch");
     }
 
@@ -114,7 +110,7 @@ public class ApiSteps {
 
     @When("a login request is made with username {string}")
     public void loginWithUsername(String username) {
-        response = authClient.login(username, "wrongpassword");
+        response = authClient.login(username, "wrong password");
     }
 
     @Then("a token is returned in the response")
@@ -175,8 +171,7 @@ public class ApiSteps {
         response.jsonPath()
                 .getList("offers.eligible")
                 .forEach(eligible ->
-                        Assert.assertTrue(Boolean.TRUE.equals(eligible),
-                                "All offers should be eligible"));
+                        Assert.assertEquals(eligible, Boolean.TRUE, "All offers should be eligible"));
     }
 
     @Then("the response time is under {int} milliseconds")

@@ -7,7 +7,6 @@ import com.bankportal.ui.pages.ProductsPage;
 import com.bankportal.utils.DriverManager;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
-import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -104,13 +103,13 @@ public class UiSteps {
 
     @Then("{int} products have a status of Active")
     public void productsHaveStatusActive(int expectedCount) {
-        Assert.assertEquals(productsPage.getActiveProductCount(), (long) expectedCount,
+        Assert.assertEquals(productsPage.getActiveProductCount(), expectedCount,
                 "Active product count mismatch");
     }
 
     @Then("{int} product has a status of Inactive")
     public void productHasStatusInactive(int expectedCount) {
-        Assert.assertEquals(productsPage.getInactiveProductCount(), (long) expectedCount,
+        Assert.assertEquals(productsPage.getInactiveProductCount(), expectedCount,
                 "Inactive product count mismatch");
     }
 
