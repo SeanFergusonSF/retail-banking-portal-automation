@@ -1,7 +1,13 @@
 {
+  "priority": 1,
   "request": {
     "method": "GET",
-    "urlPathPattern": "/customers/([a-zA-Z0-9]+)"
+    "urlPathPattern": "/customers/([a-zA-Z0-9]+)",
+    "headers": {
+      "Authorization": {
+        "contains": "Bearer"
+      }
+    }
   },
   "response": {
     "status": 200,
