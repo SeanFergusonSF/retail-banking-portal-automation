@@ -1,6 +1,7 @@
 import http from 'k6/http';
 import { check, sleep } from 'k6';
 import { Rate, Trend } from 'k6/metrics';
+import { BASE_URL, THRESHOLDS, authHeaders } from './config.js';
 
 const errorRate = new Rate('error_rate');
 const offersDuration = new Trend('offers_duration');
@@ -18,25 +19,16 @@ export const options = {
         },
     },
     thresholds: {
-        http_req_duration: ['p(95)<500'],
-        error_rate: ['rate<0.01'],
+        ...THRESHOLDS,
         offers_duration: ['p(95)<500'],
     },
 };
 
-const BASE_URL = 'http://localhost:8089';
-const AUTH_TOKEN = 'mock-jwt-token-for-testing';
-
 export default function () {
     // Scenario 1 — Authenticated offers request
-    const authHeaders = {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${AUTH_TOKEN}`,
-    };
-
     const offersResponse = http.get(
         `${BASE_URL}/offers`,
-        { headers: authHeaders }
+        { headers: authHeaders() }
     );
 
     const offersSuccess = check(offersResponse, {

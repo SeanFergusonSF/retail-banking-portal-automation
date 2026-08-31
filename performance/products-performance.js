@@ -1,6 +1,7 @@
 import http from 'k6/http';
 import { check, sleep } from 'k6';
 import { Rate, Trend } from 'k6/metrics';
+import { BASE_URL, TEST_IDS, THRESHOLDS } from './config.js';
 
 const errorRate = new Rate('error_rate');
 const productsDuration = new Trend('products_duration');
@@ -18,13 +19,10 @@ export const options = {
         },
     },
     thresholds: {
-        http_req_duration: ['p(95)<500'],
-        error_rate: ['rate<0.01'],
+        ...THRESHOLDS,
         products_duration: ['p(95)<500'],
     },
 };
-
-const BASE_URL = 'http://localhost:8089';
 
 export default function () {
     // Scenario 1 — Get all products
@@ -45,7 +43,9 @@ export default function () {
     sleep(0.5);
 
     // Scenario 2 — Get single product by ID
-    const singleProductResponse = http.get(`${BASE_URL}/products/P001`);
+    const singleProductResponse = http.get(
+        `${BASE_URL}/products/${TEST_IDS.product}`
+    );
 
     check(singleProductResponse, {
         'get product by id returns 200': (r) => r.status === 200,

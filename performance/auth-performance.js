@@ -1,56 +1,45 @@
 import http from 'k6/http';
 import { check, sleep } from 'k6';
 import { Rate, Trend } from 'k6/metrics';
+import { BASE_URL, USERS, JSON_HEADERS, THRESHOLDS } from './config.js';
 
-// Custom metrics
 const errorRate = new Rate('error_rate');
 const authDuration = new Trend('auth_duration');
 
-// Test configuration
 export const options = {
     scenarios: {
         auth_load: {
             executor: 'ramping-vus',
             startVUs: 0,
             stages: [
-                { duration: '10s', target: 5 },  // Ramp up to 5 users
-                { duration: '20s', target: 5 },  // Hold at 5 users
-                { duration: '10s', target: 0 },  // Ramp down
+                { duration: '10s', target: 5 },
+                { duration: '20s', target: 5 },
+                { duration: '10s', target: 0 },
             ],
         },
     },
     thresholds: {
-        // 95th percentile response time under 500ms
-        http_req_duration: ['p(95)<500'],
-        // Error rate under 1%
-        error_rate: ['rate<0.01'],
-        // Custom auth duration metric
+        ...THRESHOLDS,
         auth_duration: ['p(95)<500'],
     },
 };
 
-const BASE_URL = 'http://localhost:8089';
-
-// Valid login payload
 const VALID_PAYLOAD = JSON.stringify({
-    username: 'standard_user',
-    password: 'password123',
+    username: USERS.standard.username,
+    password: USERS.standard.password,
 });
 
-// Invalid login payload
 const INVALID_PAYLOAD = JSON.stringify({
-    username: 'invalid_user',
-    password: 'wrongpassword',
+    username: USERS.invalid.username,
+    password: USERS.invalid.password,
 });
-
-const HEADERS = { 'Content-Type': 'application/json' };
 
 export default function () {
     // Scenario 1 — Valid credentials return 200 with token
     const validResponse = http.post(
         `${BASE_URL}/auth/login`,
         VALID_PAYLOAD,
-        { headers: HEADERS }
+        { headers: JSON_HEADERS }
     );
 
     const validSuccess = check(validResponse, {
@@ -71,7 +60,7 @@ export default function () {
     const invalidResponse = http.post(
         `${BASE_URL}/auth/login`,
         INVALID_PAYLOAD,
-        { headers: HEADERS }
+        { headers: JSON_HEADERS }
     );
 
     check(invalidResponse, {

@@ -24,3 +24,9 @@ secrets.properties
 
 # Dependency check database (large, regenerated automatically)
 dependency-check-data/
+
+# WireMock standalone JAR (local development only, not part of the project)
+wiremock-standalone.jar
+
+# k6 performance testing (local runs only)
+k6-results/
