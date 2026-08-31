@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <title>NorthBank - Products</title>
     <style>
@@ -14,11 +14,11 @@
             border-left: 6px solid #1a2e5a;
             box-shadow: 0 2px 6px rgba(0,0,0,0.08); }
         .product-item h3 { margin: 0 0 8px; color: #1a2e5a; }
-        .product-item p { margin: 0; color: #555; }
+        .product-item p { color: #555; }  /* grey on white — same issue as home.html */
         .badge { display: inline-block; padding: 2px 10px; border-radius: 12px;
             font-size: 12px; margin-top: 8px; }
-        .badge-active { background: #d4edda; color: #155724; }
-        .badge-inactive { background: #f8d7da; color: #721c24; }
+        .badge-active { background: #d4edda; color: #155724; }  /* green on light green */
+        .badge-inactive { background: #f8d7da; color: #721c24; }  /* red on light red */
     </style>
 </head>
 <body>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite name="Bank Portal Automation Suite" verbose="1" parallel="tests" thread-count="2">
+<suite name="Bank Portal Automation Suite" verbose="1" parallel="tests" thread-count="3">
 
     <listeners>
         <listener class-name="com.bankportal.utils.TestListener"/>
@@ -16,6 +16,12 @@
     <test name="UI Tests">
         <classes>
             <class name="com.bankportal.ui.runners.UiTestRunner"/>
+        </classes>
+    </test>
+
+    <test name="Accessibility Tests">
+        <classes>
+            <class name="com.bankportal.ui.runners.AccessibilityTestRunner"/>
         </classes>
     </test>
 

@@ -131,7 +131,15 @@
       <version>${logback.version}</version>
     </dependency>
 
-
+    <!-- ===== AXE-CORE ACCESSIBILITY ===== -->
+    <!-- Injects axe-core JavaScript engine into Selenium browser -->
+    <!-- Runs WCAG 2.1 accessibility scans against live pages -->
+    <dependency>
+      <groupId>com.deque.html.axe-core</groupId>
+      <artifactId>selenium</artifactId>
+      <version>4.9.1</version>
+      <scope>test</scope>
+    </dependency>
 
   </dependencies>
 

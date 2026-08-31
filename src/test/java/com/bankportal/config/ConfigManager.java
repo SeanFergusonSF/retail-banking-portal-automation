@@ -96,4 +96,12 @@ public class ConfigManager {
     public int getPageLoadTimeout() {
         return getInt("page.load.timeout");
     }
+
+    public String getStandardUsername() {
+        return get("test.user.standard.username");
+    }
+
+    public String getStandardPassword() {
+        return get("test.user.standard.password");
+    }
 }
